@@ -16,7 +16,7 @@ class HomeScreen:
         x = int(dimensions[0] / 2)
         y = int(dimensions[1] / 2)
 
-        width = len("Hello World!" + "" if self.latest_key is None else self.latest_key)
+        width = len("Hello World!" + "" if self.latest_key is None else self.latest_key + ":confetti:")
         height = 1
 
         string = ""

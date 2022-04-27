@@ -1,7 +1,7 @@
 import os
 from time import sleep
 import ctypes
-import win32gui
+import rich # print rich text
 kernel32 = ctypes.windll.kernel32
 
 MAX_FRAME_RATE = 60
@@ -33,7 +33,7 @@ class FrameWriter:
 
                 if self.previous_frame_data != self.currrent_frame_data:
                     os.system("cls")
-                    print(self.currrent_frame_data)
+                    rich.print(self.currrent_frame_data)
 
                 # set previous frame data
                 self.previous_frame_data = self.currrent_frame_data
