@@ -8,11 +8,12 @@ MAX_FRAME_RATE = 60
 class FrameWriter:
     def __init__(self):
         self.currrent_frame_data = ""
-        self.on_render_function = None
-        self.dt = 0
+        self.on_render_function = lambda: None
         self.previous_frame_data = None
         self.frame_rate = MAX_FRAME_RATE
         self.first_drawcall = True
+
+        self.frame = 0
 
     def quickedit(self, enabled): # This is a patch to the system that sometimes hangs
         if enabled:
@@ -24,27 +25,22 @@ class FrameWriter:
         self.quickedit(0)
         while True:
             try:
-                if self.currrent_frame_data != self.previous_frame_data:
-                    os.system('cls')
-                    print(self.currrent_frame_data)
-
-                if self.on_render_function:
+                if self.first_drawcall:
+                    self.first_drawcall = False
                     self.on_render_function()
 
-                # set DT
-                self.dt = 1 / MAX_FRAME_RATE
-
-                # sleep
-                sleep(self.dt)
+                if self.previous_frame_data != self.currrent_frame_data:
+                    os.system("cls")
+                    print(self.currrent_frame_data)
 
                 # set previous frame data
                 self.previous_frame_data = self.currrent_frame_data
 
-                # set first drawcall
-                self.first_drawcall = False
+                self.on_render_function()
             except KeyboardInterrupt:
                 self.quickedit(1) 
                 exit()
+            self.frame += 1
 
     def on_render(self, func):
         self.on_render_function = func
