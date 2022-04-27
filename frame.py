@@ -1,6 +1,7 @@
 import os
 from time import sleep
 import ctypes
+import win32gui
 kernel32 = ctypes.windll.kernel32
 
 MAX_FRAME_RATE = 60
@@ -23,6 +24,7 @@ class FrameWriter:
     
     def start(self):
         self.quickedit(0)
+        os.system('mode horizontalSizeInNumber or horizontalSizeInNumber_setToZero and verticalSizeInNumber')
         while True:
             try:
                 if self.first_drawcall:
@@ -39,8 +41,9 @@ class FrameWriter:
                 self.on_render_function()
             except KeyboardInterrupt:
                 self.quickedit(1) 
-                exit()
+                break
             self.frame += 1
+        self.quickedit(1)
 
     def on_render(self, func):
         self.on_render_function = func
