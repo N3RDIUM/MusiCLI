@@ -9,12 +9,6 @@ def get_dimensions():
     size = os.get_terminal_size()
     return size.columns * 2, size.lines * 2
 
-def _cls(nrow = 0):
-    if nrow == 0:
-        os.system('cls')
-    else:
-        print('\033[F'*nrow)
-
 def _display(chars):
     print(''.join(chars))
     return len(chars)
