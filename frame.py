@@ -4,6 +4,21 @@ import ctypes
 import rich # print rich text
 kernel32 = ctypes.windll.kernel32
 
+def get_dimensions():
+    import os
+    size = os.get_terminal_size()
+    return size.columns * 2, size.lines * 2
+
+def _cls(nrow = 0):
+    if nrow == 0:
+        os.system('cls')
+    else:
+        print('\033[F'*nrow)
+
+def _display(chars):
+    print(''.join(chars))
+    return len(chars)
+
 MAX_FRAME_RATE = 60
 
 class FrameWriter:
@@ -15,6 +30,8 @@ class FrameWriter:
         self.first_drawcall = True
 
         self.frame = 0
+        self.nrow = 0
+        self.i = 0
 
     def quickedit(self, enabled): # This is a patch to the system that sometimes hangs
         if enabled:
@@ -32,8 +49,16 @@ class FrameWriter:
                     self.on_render_function()
 
                 if self.previous_frame_data != self.currrent_frame_data:
-                    os.system("cls")
-                    rich.print(self.currrent_frame_data)
+                    array = self.currrent_frame_data.split("\n")
+
+                    self.i+=1
+
+                    if self.i >= len(array):
+                        self.i = 0
+
+                    rich.print(array[self.i])
+
+                    self.nrow = _display(self.currrent_frame_data)
 
                 # set previous frame data
                 self.previous_frame_data = self.currrent_frame_data

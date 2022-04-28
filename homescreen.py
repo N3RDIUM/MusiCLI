@@ -1,9 +1,11 @@
-from pynput.keyboard import Key, Listener
+from ui_elements import *
 
 class HomeScreen:
     def __init__(self, parent):
         self.parent = parent
         self.latest_key = None
+
+        self.scrolling_text = ScrollingText(self, "Hello World! You are using a MusiCLI Preview version!")
 
     def on_key_press(self, key):
         try:
@@ -16,7 +18,9 @@ class HomeScreen:
         x = int(dimensions[0] / 2)
         y = int(dimensions[1] / 2)
 
-        width = len("Hello World!" + "" if self.latest_key is None else self.latest_key + ":confetti:")
+        t = self.scrolling_text.render()
+
+        width = len(t)
         height = 1
 
         string = ""
@@ -27,11 +31,9 @@ class HomeScreen:
         for i in range(0, int(x / 2) - width):
             string += " "
         
-        string += "Hello World!" + "" if self.latest_key is None else self.latest_key
+        string += t + "" if self.latest_key is None else self.latest_key
 
         for i in range(0, int(y / 2)):
             string += "\n"
-
-
 
         return string
