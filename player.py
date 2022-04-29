@@ -1,7 +1,7 @@
 from pynput.keyboard import Key, Listener
 import win32gui
 
-import homescreen
+import screens.homescreen as homescreen
 
 def get_dimensions():
     import os

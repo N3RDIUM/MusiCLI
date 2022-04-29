@@ -17,7 +17,7 @@ class ScrollingText(UIElementBase):
         # increment frame
         self.frame += 1
 
-        if self.frame % 4000 == 0:
+        if self.frame % 400 == 0:
             self.index += 1
 
         if self.index >= len(self.text):
