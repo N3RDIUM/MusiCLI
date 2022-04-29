@@ -17,7 +17,18 @@ class FrameWriter:
     def render(self):
         try:
             stdscr.clear()
-            stdscr.addstr(self.currrent_frame_data)
+            # convert to array
+            data = self.currrent_frame_data.split("\n")
+            # limit rows and columns
+            rows, columns = stdscr.getmaxyx()
+            if len(data) > rows:
+                data = data[:rows]
+            for i in range(len(data)):
+                if len(data[i]) > columns:
+                    data[i] = data[i][:columns]
+            # write to screen
+            for i in range(len(data)):
+                stdscr.addstr(i, 0, data[i])
             self.on_render_function()
             stdscr.refresh()
         except:
