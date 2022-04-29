@@ -3,6 +3,8 @@ from curses import wrapper
 
 stdscr = curses.initscr()
 
+FRAME_RATE_LIMIT = 60
+
 class FrameWriter:
     def __init__(self):
         self.currrent_frame_data = "Initializing..."
