@@ -90,4 +90,8 @@ class ScrollingSelector(UIElementBase):
         if len(string) < self.heightrange * 2 + 1:
             string = "  " * (self.heightrange - len(_range) / 2) + string
 
+        # if a selection has been made, return it
+        if self.selected is not None:
+            return string + "\n" + self.selected
+
         return string
