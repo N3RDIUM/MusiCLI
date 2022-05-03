@@ -36,8 +36,8 @@ class Player:
         if get_console_window_focus():
             self.screens[self.current].on_key_press(*args, **kwargs)
 
-    def render(self, dimensions):
-        return self.screens[self.current].render(dimensions)
+    def render(self):
+        return self.screens[self.current].render()
 
     def set_screen(self, screen):
         self.current = screen
